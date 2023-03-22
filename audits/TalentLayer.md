@@ -54,17 +54,17 @@ The following number of issues were found, categorized by their severity:
 
 # Findings Summary
 
-| ID     | Title                                                          | Severity      |
-| ------ | -------------------------------------------------------------- | ------------- |
-| [H-01] | Platform owner can control which party wins in escrow          | High          |
-| [H-02] | Unsafe usage of ERC20 transfer and transferFrom                | High          |
-| [M-01] | Return values of low-level calls are not checked               | Medium        |
-| [M-02] | call() should be used instead of transfer()                    | Medium        |
-| [L-01] | User can send more than necessary amount of fee                | Low           |
-| [L-02] | Seller can lose ability to update his proposal                 | Low           |
-| [L-03] | No storage gap for ERC2771RecipientUpgradeable                 | Low           |
-| [I-01] | Create your own import names instead of using the regular ones | Informational |
-| [I-02] | Code repetition                                                | Informational |
+| ID     | Title                                                          | Severity      | Status       |
+| ------ | -------------------------------------------------------------- | ------------- | ------------ |
+| [H-01] | Platform owner can control which party wins in escrow          | High          | Acknowledged |
+| [H-02] | Unsafe usage of ERC20 transfer and transferFrom                | High          | Fixed        |
+| [M-01] | Return values of low-level calls are not checked               | Medium        | Acknowledged |
+| [M-02] | call() should be used instead of transfer()                    | Medium        | Fixed        |
+| [L-01] | User can send more than necessary amount of fee                | Low           | Acknowledged |
+| [L-02] | Seller can lose ability to update his proposal                 | Low           | Acknowledged |
+| [L-03] | No storage gap for ERC2771RecipientUpgradeable                 | Low           | Acknowledged |
+| [I-01] | Create your own import names instead of using the regular ones | Informational | Fixed        |
+| [I-02] | Code repetition                                                | Informational | Acknowledged |
 
 # Detailed Findings
 
@@ -161,6 +161,8 @@ Here it is the opposite. This line assumes that if the contract doesn't have eno
 
 Use OpenZeppelin's [SafeERC20](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol) library when interaction with erc20 tokens.
 
+_Status_: Fixed at [PR](https://github.com/TalentLayer/talentlayer-id-contracts/pull/176)
+
 # [M-01] Return values of low-level calls are not checked
 
 ## Severity
@@ -218,6 +220,8 @@ The `transfer()` and `send()` functions forward a fixed amount of 2300 gas. Hist
 Use `call()` instead of `transfer()`, but be sure to respect the CEI pattern and/or add re-entrancy guards, as several hacks already happened in the past due to this recommendation not being fully understood.
 
 More info on <https://swcregistry.io/docs/SWC-134>
+
+_Status_: Fixed at [PR](https://github.com/TalentLayer/talentlayer-id-contracts/pull/176)
 
 # [L-01] User can send more than necessary amount of fee
 
@@ -307,6 +311,8 @@ should be refactored to:
 ```solidity
 import {Arbitrable} from "./Arbitrable.sol";
 ```
+
+_Status_: Fixed at [PR](https://github.com/TalentLayer/talentlayer-id-contracts/pull/176)
 
 # [I-02] Code repetition
 
